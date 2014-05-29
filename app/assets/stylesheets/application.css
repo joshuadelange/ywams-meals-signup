@@ -25,6 +25,7 @@
 	margin-bottom: 0;
 }
 
-.navbar .btn {
+.navbar p {
 	margin-top: 7px;
+	text-align: right;
 }

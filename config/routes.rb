@@ -2,7 +2,10 @@ Rails.application.routes.draw do
 
   root 'meals#index'
 
+  resources :signups
   resources :meals
+
+  get 'user' => 'application#user_edit'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

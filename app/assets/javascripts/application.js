@@ -14,3 +14,37 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function(){
+
+	$('.signup').click(function(){
+
+		var $meal = $(this),
+			$day = $meal.closest('.day') ;
+
+		$.ajax({
+			url: '/signups',
+			type: 'post',
+			data: {
+				meal: $meal.data('meal'),
+				day: $day.data('day'),
+				name: $.cookie('name')
+			},
+			success: function(){
+				$meal.closest('div').prepend('<p class="text-success">You signed up!</p>') ;
+			}
+		})
+
+	});
+
+	$('#user_edit').submit(function(ev){
+
+		ev.preventDefault() ;
+
+		$.cookie('name', $('#name').val(), {path: '/'}) ;
+
+		window.location.href = '/' ;
+
+	}) ;
+	
+}) ;

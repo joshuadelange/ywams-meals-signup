@@ -1,20 +1,17 @@
-<div class="container">
-
-  <% @meals.each do |meal| %>
-
-    <p>meal!</p>
-
-    <%= meal %>
-
-  <% end %>
-
-
-  <%
+<%
   (0..30).step do |n|
     date = Date.today + n
+    signups_for_this_day = @signups[date.strftime("%Y/%m/%d")]
+    unless signups_for_this_day
+      signups_for_this_day = {'breakfast'=>[], 'lunch'=>[], 'dinner'=>[]}
+    end
+
     %>
 
     <div class="row day" data-day="<%= date %>">
+
+      <div class="container">
+
 
       <div class="col-sm-12">
 
@@ -27,20 +24,24 @@
 
       </div>
 
-      <div class="col-sm-4">
-        <button class="btn btn-default">Sign up for breakfast</button>
-      </div>
+      <% ['breakfast', 'lunch', 'dinner'].each do |meal| %>
 
-      <div class="col-sm-4">
-        <button class="btn btn-default">Sign up for lunch</button>
-      </div>
+        <div class="col-sm-4">
 
-      <div class="col-sm-4">
-        <button class="btn btn-default">Sign up for dinner</button>
-      </div>
+          <% signups_for_this_day[meal].each do |id| %>
+
+            <p data-id="<%= id %>" class="text-success">You signed up!</p>
+
+          <% end %>
+
+          <button data-meal="<%=meal%>" class="signup btn btn-default">Sign up for <%=meal%></button>
+
+        </div>
+
+      <% end %>
 
     </div>
 
-  <% end %>
+  </div>
 
-</div>
+<% end %>

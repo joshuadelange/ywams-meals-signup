@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>YWAM Amsterdam Meals Signup</title>
 
   <!-- Latest compiled and minified CSS -->
@@ -10,12 +13,12 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 
   <!-- Latest compiled and minified JavaScript -->
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-
 
 </head>
 <body>
@@ -28,15 +31,19 @@
 
         <a class="col-sm-3 navbar-brand" href="#">Meal signup</a>
 
-        <div class="col-sm-3 pull-right">
-          <a class="btn btn-default" href="#">Something about who you are here</a>
+        <div class="col-sm-9 pull-right">
+
+          <p>
+            Signing up as <%=cookies[:name]%>
+            <a class="btn btn-default" href="/user">Change</a>
+          </p>
+
         </div>
 
       </div>
 
     </div><!-- /.container -->
   </nav>
-
 
   <%= yield %>
 
