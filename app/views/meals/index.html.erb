@@ -3,7 +3,7 @@
     date = Date.today + n
     signups_for_this_day = @signups[date.strftime("%Y/%m/%d")]
     unless signups_for_this_day
-      signups_for_this_day = {'breakfast'=>[], 'lunch'=>[], 'dinner'=>[]}
+      signups_for_this_day = {'breakfast' => 0, 'lunch' => 0, 'dinner' => 0}
     end
 
     %>
@@ -26,15 +26,28 @@
 
       <% ['breakfast', 'lunch', 'dinner'].each do |meal| %>
 
-        <div class="col-sm-4">
+        <div class="col-sm-4 meal" data-meal="<%=meal%>">
 
-          <% signups_for_this_day[meal].each do |id| %>
+          <h4><%=meal.capitalize%></h4>
 
-            <p data-id="<%= id %>" class="text-success">You signed up!</p>
-
+          <% if (signups_for_this_day[meal] >= 1) %>
+            <p class="text-success signed-up">Signed up for <%=signups_for_this_day[meal]%> people</p>
           <% end %>
 
-          <button data-meal="<%=meal%>" class="signup btn btn-default">Sign up for <%=meal%></button>
+          <% if (signups_for_this_day[meal] == 1) %>
+            <p class="text-success signed-up">Signed up</p>
+          <% end %>
+
+          <button class="signup btn btn-default">
+            Sign up
+            <% if (signups_for_this_day[meal] > 0) %>
+              another person
+            <% end %>
+          </button>
+
+          <% if (signups_for_this_day[meal] > 0) %>
+            <button class="cancel btn btn-default">Cancel</button>
+          <% end %>
 
         </div>
 

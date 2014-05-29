@@ -31,14 +31,18 @@
 
         <a class="col-sm-3 navbar-brand" href="#">Meal signup</a>
 
-        <div class="col-sm-9 pull-right">
+        <% if cookies.has_key?("name") %>
 
-          <p>
-            Signing up as <%=cookies[:name]%>
-            <a class="btn btn-default" href="/user">Change</a>
-          </p>
+          <div class="col-sm-9">
 
-        </div>
+            <p>
+              Signing up as <%=cookies[:name]%>
+              <a class="btn btn-default" href="/user">Change</a>
+            </p>
+
+          </div>
+
+        <% end %>
 
       </div>
 

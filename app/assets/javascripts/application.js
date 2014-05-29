@@ -17,10 +17,13 @@
 
 $(document).ready(function(){
 
-	$('.signup').click(function(){
+	$(document).on('click', '.signup', function(){
 
-		var $meal = $(this),
-			$day = $meal.closest('.day') ;
+		console.log($(this)) ;
+
+		var $button = $(this),
+			$meal = $button.closest('.meal'),
+			$day = $button.closest('.day') ;
 
 		$.ajax({
 			url: '/signups',
@@ -30,8 +33,63 @@ $(document).ready(function(){
 				day: $day.data('day'),
 				name: $.cookie('name')
 			},
-			success: function(){
-				$meal.closest('div').prepend('<p class="text-success">You signed up!</p>') ;
+			success: function(r){
+
+				$button.html('Sign up another person') ;
+
+				if($meal.find('.cancel').length === 0){
+					$meal.append('<button class="cancel btn btn-default">Cancel</button>') ;
+				}
+
+				var $signedUpLabel = $button.closest('div').find('.signed-up') ;
+
+				if($signedUpLabel.length === 0) {
+					$button.before('<p class="text-success signed-up">Signed up</p>') ;
+				}
+
+				if(r.number_of_signups_for_this_person_at_this_meal_on_this_day > 1) {
+					$signedUpLabel.html('Signed up for ' + r.number_of_signups_for_this_person_at_this_meal_on_this_day +' people') ;
+				}
+				else {
+					$signedUpLabel.html('Signed up') ;
+				}
+
+			}
+		})
+
+	});
+
+	$(document).on('click', '.cancel', function(){
+
+		var $button = $(this),
+			$meal = $button.closest('.meal'),
+			$day = $button.closest('.day');
+
+		$.ajax({
+			url: '/signups/1',
+			type: 'delete',
+			data: {
+				meal: $meal.data('meal'),
+				day: $day.data('day'),
+				name: $.cookie('name')
+			},
+			success: function(r){
+
+				var $signedUpLabel = $button.closest('div').find('.signed-up') ;
+
+				if(r.number_of_signups_for_this_person_at_this_meal_on_this_day > 1) {
+					$signedUpLabel.html('Signed up for ' + r.number_of_signups_for_this_person_at_this_meal_on_this_day +' people') ;
+				}
+				else {
+					$signedUpLabel.html('Signed up') ;
+				}
+
+				if(r.number_of_signups_for_this_person_at_this_meal_on_this_day == 0){
+					$signedUpLabel.remove();
+					$day.find('.signup').html('Sign up') ;
+					$button.remove();
+				}
+
 			}
 		})
 

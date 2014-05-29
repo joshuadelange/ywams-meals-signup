@@ -27,5 +27,19 @@
 
 .navbar p {
 	margin-top: 7px;
+	float: right;
 	text-align: right;
+}
+
+@media (max-width: 450px){
+	.navbar p {
+		float: left;
+		text-align: left;
+		margin-top: 0;
+	}
+}
+
+.meal {
+	padding: 10px;
+	border-bottom: 1px solid #e5e5e5;
 }

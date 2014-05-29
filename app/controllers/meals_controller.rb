@@ -12,10 +12,10 @@ class MealsController < ApplicationController
     signups_from_db.each do |signup|
 
       if @signups[signup.day.strftime("%Y/%m/%d")].blank?
-        @signups[signup.day.strftime("%Y/%m/%d")] = {'breakfast'=>[], 'lunch'=>[], 'dinner'=>[]}
+        @signups[signup.day.strftime("%Y/%m/%d")] = {'breakfast'=> 0, 'lunch'=> 0, 'dinner'=> 0}
       end
 
-      @signups[signup.day.strftime("%Y/%m/%d")][signup.meal].push(signup.id)
+      @signups[signup.day.strftime("%Y/%m/%d")][signup.meal] += 1
 
     end
 
