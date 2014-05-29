@@ -1,0 +1,33 @@
+<div class="container">
+
+  <%
+  (0..30).step do |n|
+    date = Date.today + n
+    %>
+
+    <div class="row" data-day="<%= date %>" class="day">
+
+      <h3>
+        <%= date.strftime("%A, %b %d") %>
+        <% if(n == 0) %>
+          (Today)
+        <% end %>
+      </h3>
+
+      <div class="col-sm-4">
+        <button class="btn btn-default">Sign up for breakfast</button>
+      </div>
+
+      <div class="col-sm-4">
+        <button class="btn btn-default">Sign up for lunch</button>
+      </div>
+
+      <div class="col-sm-4">
+        <button class="btn btn-default">Sign up for dinner</button>
+      </div>
+
+    </div>
+
+  <% end %>
+
+</div>
