@@ -30,7 +30,7 @@
 
           <h4><%=meal.capitalize%></h4>
 
-          <% if (signups_for_this_day[meal] >= 1) %>
+          <% if (signups_for_this_day[meal] > 1) %>
             <p class="text-success signed-up">Signed up for <%=signups_for_this_day[meal]%> people</p>
           <% end %>
 
