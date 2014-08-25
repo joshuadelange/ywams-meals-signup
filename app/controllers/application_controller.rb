@@ -6,6 +6,24 @@ class ApplicationController < ActionController::Base
   def user_edit
   end
 
+  def kitchen
+
+    signups_from_db = Signup.where("day >= ?", Date.today)
+
+    @signups = {}
+
+    signups_from_db.each do |signup|
+
+      if @signups[signup.day.strftime("%Y/%m/%d")].blank?
+        @signups[signup.day.strftime("%Y/%m/%d")] = {'breakfast'=> 0, 'lunch'=> 0, 'dinner'=> 0}
+      end
+
+      @signups[signup.day.strftime("%Y/%m/%d")][signup.meal] += 1
+
+    end
+
+  end
+
   def reports
 
     where = ''

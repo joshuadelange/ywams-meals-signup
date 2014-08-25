@@ -1,0 +1,43 @@
+<%
+  (0..7).step do |n|
+    date = Date.today + n
+    signups_for_this_day = @signups[date.strftime("%Y/%m/%d")]
+    unless signups_for_this_day
+      signups_for_this_day = {'breakfast' => 0, 'lunch' => 0, 'dinner' => 0}
+    end
+
+    %>
+
+    <div class="row day" data-day="<%= date %>">
+
+      <div class="container">
+
+
+      <div class="col-sm-12">
+
+        <h3>
+          <%= date.strftime("%A, %b %d") %>
+          <% if(n == 0) %>
+            (Today)
+          <% end %>
+        </h3>
+
+      </div>
+
+      <% ['breakfast', 'lunch', 'dinner'].each do |meal| %>
+
+        <div class="col-sm-4 meal" data-meal="<%=meal%>">
+
+          <h4><%=meal.capitalize%></h4>
+
+          <p class="text-success signed-up"><%=signups_for_this_day[meal]%> people signed up</p>
+
+        </div>
+
+      <% end %>
+
+    </div>
+
+  </div>
+
+<% end %>
