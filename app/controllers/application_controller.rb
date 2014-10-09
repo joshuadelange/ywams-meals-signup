@@ -38,12 +38,8 @@ class ApplicationController < ActionController::Base
       @end_date = Date.today + 30
     end
 
-    unless @start_date.blank?
-      where = "day >= '#{@start_date}'"
-    end
-
-    unless @end_date.blank?
-      where = "day <= '#{@end_date}'"
+    unless @start_date.blank? or @end_date.blank?
+      where = "day >= '#{@start_date}' and day <= '#{@end_date}'"
     end
 
     @signups = Signup.select('name, meal, count(*) as times').where(where).group('name, meal').order('name')
