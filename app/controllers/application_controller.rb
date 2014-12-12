@@ -15,10 +15,10 @@ class ApplicationController < ActionController::Base
     signups_from_db.each do |signup|
 
       if @signups[signup.day.strftime("%Y/%m/%d")].blank?
-        @signups[signup.day.strftime("%Y/%m/%d")] = {'breakfast'=> 0, 'lunch'=> 0, 'dinner'=> 0}
+        @signups[signup.day.strftime("%Y/%m/%d")] = {'breakfast' => {'adults' => 0, 'child' => 0}, 'lunch' => {'adults' => 0, 'child' => 0}, 'dinner' => {'adults' => 0, 'child' => 0}}
       end
 
-      @signups[signup.day.strftime("%Y/%m/%d")][signup.meal] += 1
+      @signups[signup.day.strftime("%Y/%m/%d")][signup.meal][signup.age] += 1
 
     end
 

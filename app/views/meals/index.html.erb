@@ -1,17 +1,19 @@
 <%
-  (0..30).step do |n|
-    date = Date.today + n
-    signups_for_this_day = @signups[date.strftime("%Y/%m/%d")]
-    unless signups_for_this_day
-      signups_for_this_day = {'breakfast' => 0, 'lunch' => 0, 'dinner' => 0}
-    end
 
-    %>
+(0..30).step do |n|
 
-    <div class="row day" data-day="<%= date %>">
+  date = Date.today + n
+  signups_for_this_day = @signups[date.strftime("%Y/%m/%d")]
 
-      <div class="container">
+  unless signups_for_this_day
+    signups_for_this_day = {'breakfast'=> {'adult' => 0, 'child' => 0}, 'lunch'=> {'adult' => 0, 'child' => 0}, 'dinner'=> {'adult' => 0, 'child' => 0}}
+  end
 
+  %>
+
+  <div class="row day" data-day="<%= date %>">
+
+    <div class="container">
 
       <div class="col-sm-12">
 
@@ -30,24 +32,13 @@
 
           <h4><%=meal.capitalize%></h4>
 
-          <% if (signups_for_this_day[meal] > 1) %>
-            <p class="text-success signed-up">Signed up for <%=signups_for_this_day[meal]%> people</p>
+          <% if (signups_for_this_day[meal]['adult'] > 0 || signups_for_this_day[meal]['child'] > 0) %>
+            <p class="text-success signed-up">Signed up for <%=pluralize(signups_for_this_day[meal]['adult'], 'adult')%> and <%=pluralize(signups_for_this_day[meal]['child'], 'child')%></p>
+          <% else %>
+            <p class="text-muted">You haven't signed up.</p>
           <% end %>
 
-          <% if (signups_for_this_day[meal] == 1) %>
-            <p class="text-success signed-up">Signed up</p>
-          <% end %>
-
-          <button class="signup btn btn-default">
-            Sign up
-            <% if (signups_for_this_day[meal] > 0) %>
-              another person
-            <% end %>
-          </button>
-
-          <% if (signups_for_this_day[meal] > 0) %>
-            <button class="cancel btn btn-default">Cancel</button>
-          <% end %>
+          <a href="/meal/<%=date%>/<%=meal%>" class="btn btn-default">Sign up</a>
 
         </div>
 

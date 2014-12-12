@@ -17,92 +17,42 @@
 
 $(document).ready(function(){
 
-	$(document).on('click', '.signup', function(){
+    $('#user_edit').submit(function(ev){
 
-		console.log($(this)) ;
+        ev.preventDefault() ;
 
-		var $button = $(this),
-			$meal = $button.closest('.meal'),
-			$day = $button.closest('.day') ;
+        $.cookie('name', $('#name').val(), {path: '/'}) ;
 
-		$.ajax({
-			url: '/signups',
-			type: 'post',
-			data: {
-				meal: $meal.data('meal'),
-				day: $day.data('day'),
-				name: $.cookie('name')
-			},
-			success: function(r){
+        window.location.href = '/' ;
 
-				$button.html('Sign up another person') ;
+    }) ;
 
-				if($meal.find('.cancel').length === 0){
-					$meal.append('<button class="cancel btn btn-default">Cancel</button>') ;
-				}
+    $(document).on('click', '.remove-signup', function(e){
+        $(e.target).closest('.row').remove();
+    });
 
-				var $signedUpLabel = $button.closest('div').find('.signed-up') ;
+    $(document).on('click', '.new-signup', function(){
 
-				if($signedUpLabel.length === 0) {
-					$button.before('<p class="text-success signed-up">Signed up</p>') ;
-				}
+        var age = $(this).data('age'),
+            randomNumber = Math.ceil(Math.random() * 1000),
+            html = '<div class="row">' +
 
-				if(r.number_of_signups_for_this_person_at_this_meal_on_this_day > 1) {
-					$signedUpLabel.html('Signed up for ' + r.number_of_signups_for_this_person_at_this_meal_on_this_day +' people') ;
-				}
-				else {
-					$signedUpLabel.html('Signed up') ;
-				}
+                '<input name="signups[' + randomNumber + '][age]" type="hidden" value="' + age + '">' +
 
-			}
-		})
+                '<div class="col-sm-6">' +
+                    '<strong>' + age.charAt(0).toUpperCase() + age.slice(1) + '</strong>' +
+                '</div>' +
 
-	});
+                '<div class="col-sm-3 text-muted"><label>Send bill to <input name="signups[' + randomNumber + '][bill_to]" type="text" value="' + $.cookie('name') + '"></label></div>' +
 
-	$(document).on('click', '.cancel', function(){
+                '<div class="col-sm-2 text-muted"><label><input name="signups[' + randomNumber + '][is_guest]" type="checkbox"> Is guest?</label></div>' +
 
-		var $button = $(this),
-			$meal = $button.closest('.meal'),
-			$day = $button.closest('.day');
+                '<div class="col-sm-1"><a href="javascript://" class="btn btn-default btn-xs remove-signup">Remove</a></div>' +
 
-		$.ajax({
-			url: '/signups/1',
-			type: 'delete',
-			data: {
-				meal: $meal.data('meal'),
-				day: $day.data('day'),
-				name: $.cookie('name')
-			},
-			success: function(r){
+            '</div>';
 
-				var $signedUpLabel = $button.closest('div').find('.signed-up') ;
+        $('.signups').append(html);
 
-				if(r.number_of_signups_for_this_person_at_this_meal_on_this_day > 1) {
-					$signedUpLabel.html('Signed up for ' + r.number_of_signups_for_this_person_at_this_meal_on_this_day +' people') ;
-				}
-				else {
-					$signedUpLabel.html('Signed up') ;
-				}
+    });
 
-				if(r.number_of_signups_for_this_person_at_this_meal_on_this_day == 0){
-					$signedUpLabel.remove();
-					$day.find('.signup').html('Sign up') ;
-					$button.remove();
-				}
-
-			}
-		})
-
-	});
-
-	$('#user_edit').submit(function(ev){
-
-		ev.preventDefault() ;
-
-		$.cookie('name', $('#name').val(), {path: '/'}) ;
-
-		window.location.href = '/' ;
-
-	}) ;
-	
 }) ;

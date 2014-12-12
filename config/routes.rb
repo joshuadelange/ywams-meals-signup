@@ -2,8 +2,11 @@ Rails.application.routes.draw do
 
   root 'meals#index'
 
-  resources :signups
-  resources :meals
+  # resources :signups
+  # resources :meals
+
+  get 'meal/:date/:meal' => 'meals#edit'
+  post 'meal/:date/:meal' => 'meals#save'
 
   get 'user' => 'application#user_edit'
   get 'reports' => 'application#reports'

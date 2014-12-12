@@ -14,32 +14,69 @@
  *= require_self
  */
 
-
-.day {
-	padding-bottom: 20px;
-	border-top: 1px solid #D4D4D4;
-	background-color: #EDEDED;
+body {
+	background-color: #FCFCFC;
 }
 
-.navbar {
+nav {
+	border-bottom: 1px solid #D4D4D4;
+	background-color: #EDEDED;
+	color: grey;
+	height: 38px;
+}
+
+nav {
 	margin-bottom: 0;
 }
 
-.navbar p {
+nav h1 {
+	font-size: 15px;
+	font-weight: normal;
+	float: left;
+	margin: 0;
+	margin-top: 10px;
+}
+
+nav h1 a {
+	color: grey;
+}
+
+nav p {
 	margin-top: 7px;
 	float: right;
 	text-align: right;
 }
 
 @media (max-width: 450px){
-	.navbar p {
+	nav p {
 		float: left;
 		text-align: left;
 		margin-top: 0;
 	}
 }
 
+.btn-group {
+	margin-bottom: 10px;
+}
+
+.day {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.day .container {
+	background-color: #F0F0F0;
+}
+
 .meal {
-	padding: 10px;
-	border-bottom: 1px solid #e5e5e5;
+	padding: 20px;
+	border-right: 1px solid #c1c1c1;
+}
+
+.meal:last-of-type {
+	border-right: none;
+}
+
+label {
+	font-weight: normal;
 }
