@@ -51,6 +51,7 @@ $(document).ready(function(){
 
             '</div>';
 
+        $('.signups .no-signups').remove();
         $('.signups').append(html);
 
     });
