@@ -15,12 +15,21 @@ class ApplicationController < ActionController::Base
     signups_from_db.each do |signup|
 
       if @signups[signup.day.strftime("%Y/%m/%d")].blank?
-        @signups[signup.day.strftime("%Y/%m/%d")] = {'breakfast' => {'adults' => 0, 'child' => 0}, 'lunch' => {'adults' => 0, 'child' => 0}, 'dinner' => {'adults' => 0, 'child' => 0}}
+        @signups[signup.day.strftime("%Y/%m/%d")] = {'breakfast' => {'adult' => 0, 'child' => 0}, 'lunch' => {'adult' => 0, 'child' => 0}, 'dinner' => {'adult' => 0, 'child' => 0}}
       end
 
       @signups[signup.day.strftime("%Y/%m/%d")][signup.meal][signup.age] += 1
 
     end
+
+  end
+
+  def kitchen_detail
+
+    @date = params[:date].to_time
+    @meal = params[:meal]
+
+    @signups = Signup.where(:name => cookies[:name]).where("day = ? and meal = ?", @date.strftime("%Y/%m/%d"), @meal)
 
   end
 

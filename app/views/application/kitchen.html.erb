@@ -3,7 +3,7 @@
     date = Date.today + n
     signups_for_this_day = @signups[date.strftime("%Y/%m/%d")]
     unless signups_for_this_day
-      signups_for_this_day = {'breakfast' => 0, 'lunch' => 0, 'dinner' => 0}
+      signups_for_this_day = {'breakfast'=> {'adult' => 0, 'child' => 0}, 'lunch'=> {'adult' => 0, 'child' => 0}, 'dinner'=> {'adult' => 0, 'child' => 0}}
     end
 
     %>
@@ -30,7 +30,15 @@
 
           <h4><%=meal.capitalize%></h4>
 
-          <p class="text-success signed-up"><%=signups_for_this_day[meal]%> people signed up</p>
+          <% if (signups_for_this_day[meal]['adult'] > 0 || signups_for_this_day[meal]['child'] > 0) %>
+            <p><%=pluralize(signups_for_this_day[meal]['adult'], 'adult')%></p>
+            <p><%=pluralize(signups_for_this_day[meal]['child'], 'child')%></p>
+          <% else %>
+            <p class="text-muted">You haven't signed up.</p>
+          <% end %>
+
+          <a href="/kitchen/<%=date%>/<%=meal%>" class="btn btn-default">See all</a>
+
 
         </div>
 

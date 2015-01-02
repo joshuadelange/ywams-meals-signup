@@ -1,0 +1,35 @@
+<div class="container">
+
+    <div class="col-sm-12">
+
+        <h3><%= @date.strftime("%A, %b %d") %>, <%= @meal %></h3>
+
+        <div class="signups">
+
+            <% if @signups.empty? %>
+
+                <p class="text-muted no-signups">No sign ups yet.</p>
+
+            <% else %>
+
+                <% @signups.each do |signup| %>
+
+                    <div class="row">
+
+                        <div class="col-sm-1">
+                            <strong><%=signup.age.capitalize%></strong>
+                        </div>
+
+                        <div class="col-sm-8"><p><%=signup.name%><% unless signup.name == signup.bill_to %>, send bill to <%=signup.bill_to%><% end %> <span class="text-muted"><%if(signup.is_guest)%>(Guest)<%end%></span> </p></div>
+
+                    </div>
+
+                <% end %>
+
+            <% end %>
+
+        </div>
+
+    </div>
+
+</div>

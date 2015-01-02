@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'user' => 'application#user_edit'
   get 'reports' => 'application#reports'
   get 'kitchen' => 'application#kitchen'
+  get 'kitchen/:date/:meal' => 'application#kitchen_detail'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
