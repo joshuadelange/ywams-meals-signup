@@ -34,6 +34,8 @@ $(document).ready(function(){
     $(document).on('click', '.new-signup', function(){
 
         var age = $(this).data('age'),
+            dayOfTheWeek = $(this).closest('form').data('day-of-the-week'),
+            initialBillTo = (dayOfTheWeek == 4) ? 'Leadership Team' : $.cookie('name'),
             randomNumber = Math.ceil(Math.random() * 1000),
             html = '<div class="row">' +
 
@@ -43,9 +45,9 @@ $(document).ready(function(){
                     '<strong>' + age.charAt(0).toUpperCase() + age.slice(1) + '</strong>' +
                 '</div>' +
 
-                '<div class="col-sm-3 text-muted"><label>Send bill to <input name="signups[' + randomNumber + '][bill_to]" type="text" value="' + $.cookie('name') + '"></label></div>' +
+                '<div class="col-sm-3 text-muted"><label>Send bill to <input class="bill_to" name="signups[' + randomNumber + '][bill_to]" type="text" value="' + initialBillTo + '"></label></div>' +
 
-                '<div class="col-sm-2 text-muted"><label><input name="signups[' + randomNumber + '][is_guest]" type="checkbox"> Is guest?</label></div>' +
+                '<div class="col-sm-2 text-muted"><label><input class="is_guest" name="signups[' + randomNumber + '][is_guest]" type="checkbox"> Is guest?</label></div>' +
 
                 '<div class="col-sm-1"><a href="javascript://" class="btn btn-default btn-xs remove-signup">Remove</a></div>' +
 
@@ -54,6 +56,21 @@ $(document).ready(function(){
         $('.signups .no-signups').remove();
         $('.signups').append(html);
 
+    });
+
+    $(document).on('click', '.is_guest', function(){
+        var dayOfTheWeek = $(this).closest('form').data('day-of-the-week'),
+            $billTo = $(this).closest('.row').find('.bill_to'),
+            enabled = $(this).is(':checked');
+            
+        if(dayOfTheWeek === 4){
+            if(enabled){
+                $billTo.val($.cookie('name'));
+            }
+            else {
+                $billTo.val('Leadership Team');
+            }
+        }
     });
 
 }) ;

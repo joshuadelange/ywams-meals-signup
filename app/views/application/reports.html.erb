@@ -33,7 +33,7 @@
 		<thead>
 
 			<tr>
-				<th>Name</th>
+				<th>Bill To</th>
 				<th>Meal</th>
 				<th>Number of signups</th>
 			</tr>
@@ -46,7 +46,7 @@
 
 				<tr>
 
-					<td><%= signup.name %></td>
+					<td><%= signup.bill_to %> <% if(signup.is_guest) %><span class="text-muted">(Guest)</span><% end %></td>
 					<td><%= signup.meal.capitalize %></td>
 					<td><%= signup.times %></td>
 

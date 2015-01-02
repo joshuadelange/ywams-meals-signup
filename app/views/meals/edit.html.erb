@@ -4,7 +4,7 @@
 
         <h3><%= @date.strftime("%A, %b %d") %>, <%= @meal %></h3>
 
-        <form id="signup-form" method="POST" action="/meal/<%=@date.strftime("%Y-%m-%d")%>/<%=@meal%>">
+        <form id="signup-form" method="POST" data-day-of-the-week="<%= @date.strftime("%u") %>" action="/meal/<%=@date.strftime("%Y-%m-%d")%>/<%=@meal%>">
 
             <div class="signups">
 
@@ -25,9 +25,9 @@
                                 <strong><%=signup.age.capitalize%></strong>
                             </div>
 
-                            <div class="col-sm-3 text-muted"><label>Send bill to <input name="signups[<%=signup.id%>][bill_to]" type="text" value="<%=signup.bill_to%>"></label></div>
+                            <div class="col-sm-3 text-muted"><label>Send bill to <input class="bill_to" name="signups[<%=signup.id%>][bill_to]" type="text" value="<%=signup.bill_to%>"></label></div>
 
-                            <div class="col-sm-2 text-muted"><label><input name="signups[<%=signup.id%>][is_guest]" type="checkbox" <%if(signup.is_guest)%>checked<%end%>> Is guest?</label></div>
+                            <div class="col-sm-2 text-muted"><label><input class="is_guest" name="signups[<%=signup.id%>][is_guest]" type="checkbox" <%if(signup.is_guest)%>checked<%end%>> Is guest?</label></div>
 
                             <div class="col-sm-1"><a href="javascript://" class="btn btn-default btn-xs remove-signup">Remove</a></div>
 

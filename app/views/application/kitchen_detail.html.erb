@@ -20,7 +20,7 @@
                             <strong><%=signup.age.capitalize%></strong>
                         </div>
 
-                        <div class="col-sm-8"><p><%=signup.name%><% unless signup.name == signup.bill_to %>, send bill to <%=signup.bill_to%><% end %> <span class="text-muted"><%if(signup.is_guest)%>(Guest)<%end%></span> </p></div>
+                        <div class="col-sm-8"><p><%=signup.name%><% unless signup.name == signup.bill_to %>, send bill to <%=signup.bill_to%><% end %> <%if(signup.is_guest)%><span class="text-muted">(Guest)</span><%end%> </p></div>
 
                     </div>
 
