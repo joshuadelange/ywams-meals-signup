@@ -1,8 +1,13 @@
+<div class="pagination">
+  <% last_week = @starting_date - 1 %>
+  <a class="btn btn-link" href="/?starting_date=<%= last_week.strftime("%Y/%m/%d") %>">Earlier signups</a>
+</div>
+
 <%
 
 (0..30).step do |n|
 
-  date = Date.today + n
+  date = @starting_date + n
   signups_for_this_day = @signups[date.strftime("%Y/%m/%d")]
 
   unless signups_for_this_day
@@ -19,7 +24,7 @@
 
         <h3>
           <%= date.strftime("%A, %b %d") %>
-          <% if(n == 0) %>
+          <% if(date == Date.today) %>
             (Today)
           <% end %>
         </h3>
@@ -49,3 +54,8 @@
   </div>
 
 <% end %>
+
+<div class="pagination">
+  <% next_week = @starting_date + 1 %>
+  <a class="btn btn-link" href="/?starting_date=<%= last_week.strftime("%Y/%m/%d") %>">Later signups</a>
+</div>

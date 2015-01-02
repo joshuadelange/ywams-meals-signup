@@ -6,7 +6,13 @@ class MealsController < ApplicationController
       redirect_to '/user'
     end
 
-    signups_from_db = Signup.where(:name => cookies[:name]).where("day >= ?", Date.today)
+    @starting_date = Date.today
+
+    if params[:starting_date]
+      @starting_date = Date.parse(params[:starting_date])
+    end
+
+    signups_from_db = Signup.where(:name => cookies[:name]).where("day >= ?", @starting_date)
 
     @signups = {}
 

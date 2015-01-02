@@ -55,12 +55,18 @@ nav p {
 	}
 }
 
+.pagination {
+	text-align: center;
+	display: block;
+	margin: 0;
+}
+
 .btn-group {
 	margin-bottom: 10px;
 }
 
 .day {
-	margin-top: 30px;
+	/*margin-top: 30px;*/
 	margin-bottom: 30px;
 }
 
