@@ -4,7 +4,7 @@
 
         <h3><%= @date.strftime("%A, %b %d") %>, <%= @meal %></h3>
 
-        <form id="signup-form" method="POST" data-day-of-the-week="<%= @date.strftime("%u") %>" action="/meal/<%=@date.strftime("%Y-%m-%d")%>/<%=@meal%>">
+        <form id="signup-form" method="POST" data-day-of-the-week="<%= @date.strftime("%u") %>" data-meal="<%= @meal %>" action="/meal/<%=@date.strftime("%Y-%m-%d")%>/<%=@meal%>">
 
             <div class="signups">
 

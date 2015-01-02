@@ -35,7 +35,8 @@ $(document).ready(function(){
 
         var age = $(this).data('age'),
             dayOfTheWeek = $(this).closest('form').data('day-of-the-week'),
-            initialBillTo = (dayOfTheWeek == 4) ? 'Leadership Team' : $.cookie('name'),
+            meal = $(this).closest('form').data('meal'),
+            initialBillTo = (dayOfTheWeek == 4 && meal === 'dinner') ? 'Leadership Team' : $.cookie('name'),
             randomNumber = Math.ceil(Math.random() * 1000),
             html = '<div class="row">' +
 
@@ -60,10 +61,11 @@ $(document).ready(function(){
 
     $(document).on('click', '.is_guest', function(){
         var dayOfTheWeek = $(this).closest('form').data('day-of-the-week'),
+            meal = $(this).closest('form').data('meal'),
             $billTo = $(this).closest('.row').find('.bill_to'),
             enabled = $(this).is(':checked');
             
-        if(dayOfTheWeek === 4){
+        if(dayOfTheWeek === 4 && meal === 'dinner'){
             if(enabled){
                 $billTo.val($.cookie('name'));
             }
